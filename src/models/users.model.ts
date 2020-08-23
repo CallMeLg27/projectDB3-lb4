@@ -72,11 +72,10 @@ export class Users extends Entity {
   dni: string;
 
   @property({
-    type: 'array',
-    itemType: 'object',
+    type: 'string',
     required: true,
   })
-  roles: object[];
+  role: string;
 
 
   constructor(data?: Partial<Users>) {
