@@ -10,10 +10,10 @@ export class Users extends Entity {
   id?: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  userId: string;
+  userId: number;
 
   @property({
     type: 'string',

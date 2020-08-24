@@ -1,7 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Chips extends Entity {
+export class Problems extends Entity {
   @property({
     type: 'string',
     id: true,
@@ -13,46 +13,52 @@ export class Chips extends Entity {
     type: 'number',
     required: true,
   })
-  chipId: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  plan: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  provider: string;
+  problemId?: number;
 
   @property({
     type: 'number',
     required: true,
   })
-  balance: number;
+  userId: number;
 
   @property({
     type: 'string',
     required: true,
   })
-  number: string;
+  category: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  dni_user: string;
+  title: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  description: string;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  date: string;
+
+  @property({
+    type: 'boolean',
+    required: true,
+  })
+  solved: boolean;
 
 
-  constructor(data?: Partial<Chips>) {
+  constructor(data?: Partial<Problems>) {
     super(data);
   }
 }
 
-export interface ChipsRelations {
+export interface ProblemsRelations {
   // describe navigational properties here
 }
 
-export type ChipsWithRelations = Chips & ChipsRelations;
+export type ProblemsWithRelations = Problems & ProblemsRelations;

@@ -1,7 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Chips extends Entity {
+export class Comments extends Entity {
   @property({
     type: 'string',
     id: true,
@@ -13,46 +13,46 @@ export class Chips extends Entity {
     type: 'number',
     required: true,
   })
-  chipId: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  plan: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  provider: string;
+  commentaryId: number;
 
   @property({
     type: 'number',
     required: true,
   })
-  balance: number;
+  problemId: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  userId: number;
 
   @property({
     type: 'string',
     required: true,
   })
-  number: string;
+  content: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  dni_user: string;
+  score: number;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  date: string;
 
 
-  constructor(data?: Partial<Chips>) {
+  constructor(data?: Partial<Comments>) {
     super(data);
   }
 }
 
-export interface ChipsRelations {
+export interface CommentsRelations {
   // describe navigational properties here
 }
 
-export type ChipsWithRelations = Chips & ChipsRelations;
+export type CommentsWithRelations = Comments & CommentsRelations;

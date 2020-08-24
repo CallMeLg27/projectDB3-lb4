@@ -10,10 +10,10 @@ export class Cellphones extends Entity {
   id?: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  cellphoneId: string;
+  cellphoneId: number;
 
   @property({
     type: 'string',

@@ -1,58 +1,46 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Chips extends Entity {
+export class Internets extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: true,
   })
   id?: string;
+  
+  @property({
+    type: 'number',
+    required: true,
+  })
+  internetId: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  speed: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  upload_speed: string;
 
   @property({
     type: 'number',
     required: true,
   })
-  chipId: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  plan: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  provider: string;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
-  balance: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  number: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  dni_user: string;
+  cost: number;
 
 
-  constructor(data?: Partial<Chips>) {
+  constructor(data?: Partial<Internets>) {
     super(data);
   }
 }
 
-export interface ChipsRelations {
+export interface InternetsRelations {
   // describe navigational properties here
 }
 
-export type ChipsWithRelations = Chips & ChipsRelations;
+export type InternetsWithRelations = Internets & InternetsRelations;
