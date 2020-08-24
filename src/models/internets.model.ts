@@ -8,7 +8,7 @@ export class Internets extends Entity {
     generated: true,
   })
   id?: string;
-  
+
   @property({
     type: 'number',
     required: true,
@@ -16,16 +16,16 @@ export class Internets extends Entity {
   internetId: number;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  speed: string;
+  speed: number;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  upload_speed: string;
+  upload_speed: number;
 
   @property({
     type: 'number',
