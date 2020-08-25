@@ -84,6 +84,105 @@ export class ProblemsController {
     return this.problemsRepository.find(filter);
   }
 
+  @get('/problems/mostScored', {
+    responses: {
+      '200': {
+        description: 'Cantidad de problemas por día en una semana ',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Problems, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async mostScored(
+    @param.filter(Problems) filter?: Filter<Problems>,
+  ): Promise<Problems[]> {
+     return (this.problemsRepository.dataSource.connector as any)
+    .collection("Problems")
+    .aggregate([
+    {$project:{_id:0,problemId:1,score:1}},
+    {$sort:{score:-1}},
+    {$limit:1}])    
+    .get();
+  }
+
+  @get('/problems/countPerDayInWeek', {
+    responses: {
+      '200': {
+        description: 'Cantidad de problemas por día en una semana ',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Problems, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async countPerDayInWeek(
+    @param.filter(Problems) filter?: Filter<Problems>,
+  ): Promise<Problems[]> {
+    return (this.problemsRepository.dataSource.connector as any)
+    .collection("Problems")
+    .aggregate([{$match:{date:{"$gt": new Date("1997-11-00"), "$lt":new Date("1997-11-07")}}},{$group:{_id:"$date",count:{$sum:1}}},{$sort:{count:-1}}])
+    .get();
+  }
+
+  @get('/problems/countPerDayInMonth', {
+    responses: {
+      '200': {
+        description: 'Cantidad de problemas por día en un mes ',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Problems, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async countPerDayInMonth(
+    @param.filter(Problems) filter?: Filter<Problems>,
+  ): Promise<Problems[]> {
+    return (this.problemsRepository.dataSource.connector as any)
+    .collection("Problems")
+    .aggregate([{$match:{date:{"$gt": new Date("1997-11-00"), "$lt":new Date("1997-11-07")}}},{$group:{_id:"$date",count:{$sum:1}}},{$sort:{count:-1}}])
+    .get();
+  }
+
+  @get('/problems/countPerCategory', {
+    responses: {
+      '200': {
+        description: 'Cantidad de problemas por categoria',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Problems, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async countPerCategory(
+    @param.filter(Problems) filter?: Filter<Problems>,
+  ): Promise<Problems[]> {
+    return (this.problemsRepository.dataSource.connector as any)
+    .collection("Problems")
+    .aggregate([{$group:{_id:"$category",count:{$sum:1}}}])
+    .get();
+  }
+
   @patch('/problems', {
     responses: {
       '200': {

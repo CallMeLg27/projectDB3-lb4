@@ -5,3 +5,4 @@ export * from './cellphones.controller';
 export * from './comments.controller';
 export * from './problems.controller';
 export * from './internets.controller';
+export * from './suggestions.controller';

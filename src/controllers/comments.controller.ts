@@ -84,6 +84,72 @@ export class CommentsController {
     return this.commentsRepository.find(filter);
   }
 
+  @get('/comments/lookup', {
+    responses: {
+      '200': {
+        description: 'Array of Comments model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Comments, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async lookup(
+    @param.filter(Comments) filter?: Filter<Comments>,
+  ): Promise<Comments[]> {
+    return (this.commentsRepository.dataSource.connector as any)
+    .collection("Comments")
+    .aggregate([
+      {
+        $lookup:{
+          from: "Problems",
+          localField: "problemId",
+          foreignField: "problemId",
+          as: "problems"
+        }
+      }
+      ])
+    .get();
+  }
+
+  @get('/comments/mostCommentedProblem', {
+    responses: {
+      '200': {
+        description: 'Most commented problem',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Comments, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async mostCommentedProblem(
+    @param.filter(Comments) filter?: Filter<Comments>,
+  ): Promise<Comments[]> {
+    return (this.commentsRepository.dataSource.connector as any)
+    .collection("Comments")
+    .aggregate([
+      {
+        $group:{
+          _id:"$problemId",
+          count:{
+            $sum:1
+          }
+        }
+      }
+      ])
+    .get();
+  }
+
   @patch('/comments', {
     responses: {
       '200': {

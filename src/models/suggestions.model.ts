@@ -1,7 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Problems extends Entity {
+export class Suggestions extends Entity {
   @property({
     type: 'string',
     id: true,
@@ -13,7 +13,7 @@ export class Problems extends Entity {
     type: 'number',
     required: true,
   })
-  problemId?: number;
+  suggestionId: number;
 
   @property({
     type: 'number',
@@ -46,24 +46,19 @@ export class Problems extends Entity {
   date: string;
 
   @property({
-    type: 'boolean',
-    required: true,
-  })
-  solved: boolean;
-
-  @property({
     type: 'number',
     default: 0,
   })
   score?: number;
 
-  constructor(data?: Partial<Problems>) {
+
+  constructor(data?: Partial<Suggestions>) {
     super(data);
   }
 }
 
-export interface ProblemsRelations {
+export interface SuggestionsRelations {
   // describe navigational properties here
 }
 
-export type ProblemsWithRelations = Problems & ProblemsRelations;
+export type SuggestionsWithRelations = Suggestions & SuggestionsRelations;
