@@ -1,7 +1,6 @@
 use projectDB3
 
 //Insertamos a los users
-
 db.Users.insert([{
     "userId": 1,
     "username": "JRC",
@@ -201,7 +200,6 @@ db.Users.insert([{
 
 
 //Insertamos a los cellphones
-
 db.Cellphones.insert([{
   "cellphoneId": 1,
   "brand": "SAMSUNG",
@@ -254,8 +252,7 @@ db.Cellphones.insert([{
   "memory": "128GB , 6GB RAM"
 }])
 
-//Insertamos a los chip 
-
+//Insertamos a los chips
 db.Chips.insert([{
   "chipId": 1,
   "plan": "PREPAGO",
@@ -336,8 +333,7 @@ db.Chips.insert([{
 }])
 
 
-//Insertamos Internet 
-
+//Insertamos planes de Internet 
 db.Internets.insert([
 	{
 	"internetId":1,
@@ -383,12 +379,7 @@ db.Internets.insert([
 	}
 	])
 
-
-
-
-
 //Insertamos a los Problemas
-
 db.Problems.insert([{
   "problemId": 1,
   "userId": 10,
@@ -396,7 +387,7 @@ db.Problems.insert([{
   "title": "Problemas con mi Wifi",
   "description": "¿Por qué mi red wifi falla demasiado? ¿Es normal? Tengo un internet de 60 Mbps por favor ayuda",
   "date": new Date("1997-12-30"),
-  "score": 2,
+  "score": 3,
   "solved": true
 },{
   "problemId": 2,
@@ -405,7 +396,7 @@ db.Problems.insert([{
   "title": "Problemas de velocidad de internet",
   "description": "¿Cómo aumento la velocidad de mi internet? Tengo un 1 Play de 15 Mpbs",
   "date": new Date("1997-11-01"),
-  "score": 2,
+  "score": 1,
   "solved": true
 },{
   "problemId": 3,
@@ -414,7 +405,7 @@ db.Problems.insert([{
   "title": "Mi celular vino con la pantalla rallada",
   "description": "¿Cómo se podria solucionar eso?",
   "date": new Date("1997-11-02"),
-  "score": 2,
+  "score": 3,
   "solved": false
 },{
   "problemId": 4,
@@ -423,15 +414,20 @@ db.Problems.insert([{
   "title": "Seguro ante robo o hurto",
   "description": "¿El Seguro te protege ante el robo o hurto de tu móvil?",
   "date": new Date("1997-12-02"),
+  "score": 5,
+  "solved": true
+},{
+  "problemId": 5,
+  "userId": 16,
+  "category": "Chip",
+  "title": "¿Cómo puedo migrar a postpago?",
+  "description": "Quiero tener un plan mensual",
+  "date": new Date("1997-12-02"),
   "score": 2,
   "solved": true
 }])
 
-
-
-
 //Insertamos a los Comentarios
-
 db.Comments.insert([{
   "commentaryId": 1,
   "problemId": 1,
@@ -483,4 +479,29 @@ db.Comments.insert([{
   "date": new Date("1997-12-06")
 }])
 
-
+//Insertamos a los Sugerencias
+db.Suggestions.insert([{
+  "suggestionId": 1,
+  "userId": 10,
+  "category": "Internet",
+  "title": "Soporte para el Handshake DNS",
+  "description": "El DNS de Movistar podría resolver los nombres de Handshake ",
+  "date": new Date("1997-12-30"),
+  "score": 3
+},{
+ "suggestionId": 2,
+  "userId": 6,
+  "category": "Celular",
+  "title": "Más móviles homologados para llamadas VoLTE",
+  "description": "Propongo que los que estéis interesados en que Movistar amplíe la oferta de dispositivos homologados para las llamadas VoLTE (Voz 4G) lo comentéis en este post. ",
+  "date": new Date("1997-11-01"),
+  "score": 1
+},{
+ "suggestionId": 3,
+  "userId": 11,
+  "category": "Internet",
+  "title": "PROMOCION VERANO",
+  "description": "¿Vais a lanzar alguna pormocion con gigas de regalo/ilimitadas para este verano como estan haciendo otras compañias? No he visto publicidad ni leido nada como otros años.",
+  "date": new Date("1997-11-02"),
+  "score": 3
+}])
