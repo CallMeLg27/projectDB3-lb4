@@ -84,6 +84,36 @@ export class UsersController {
     return this.usersRepository.find(filter);
   }
 
+  @get('/users/login', {
+    responses: {
+      '200': {
+        description: 'Array of Users model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Users, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async login(
+    @param.filter(Users) filter?: Filter<Users>,
+  ): Promise<Users[]> {
+     return (this.usersRepository.dataSource.connector as any)
+    .collection("Users")
+    .aggregate([
+      {
+        $match: {
+          $and: [{ username: "JRC" }, { password: "12345" }],
+        },
+      },
+    ])  
+    .get();
+  }
+
   @patch('/users', {
     responses: {
       '200': {
@@ -171,3 +201,4 @@ export class UsersController {
     await this.usersRepository.deleteById(id);
   }
 }
+
