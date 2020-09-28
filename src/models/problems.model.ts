@@ -57,6 +57,30 @@ export class Problems extends Entity {
   })
   score?: number;
 
+  @property({
+    type: 'boolean',
+    required: true,
+  })
+  isPrivate: boolean;
+
+  @property({
+    type: 'string',
+    default: 0,
+  })
+  image?: string;
+
+  @property({
+    type: 'array',
+    itemType: 'number',
+  })
+  usersWhoLike?: number[];
+
+  @property({
+    type: 'array',
+    itemType: 'number',
+  })
+  usersWhoDislike?: number[];
+
   constructor(data?: Partial<Problems>) {
     super(data);
   }

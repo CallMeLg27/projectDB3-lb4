@@ -4,7 +4,7 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'mongocloud',
   connector: 'mongodb',
-  url: 'mongodb+srv://masterUser:lfxx58CGKeUQLpPO@cluster0-rbufh.mongodb.net/projectDB3',
+  url: 'mongodb+srv://projectDB3admin:projectDB3admin@cluster0.rbufh.mongodb.net/projectDB3',
   // url: 'mongodb+srv://platzi-admin:QOIM7cldJ52JXXEV@curso-platzi-q31zd.mongodb.net/projectDB3',
   host: '',
   port: 0,

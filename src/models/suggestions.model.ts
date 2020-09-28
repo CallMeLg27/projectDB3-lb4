@@ -46,11 +46,10 @@ export class Suggestions extends Entity {
   date: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     default: 0,
   })
-  score?: number;
-
+  image?: string;
 
   constructor(data?: Partial<Suggestions>) {
     super(data);

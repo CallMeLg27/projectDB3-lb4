@@ -45,6 +45,23 @@ export class Comments extends Entity {
   })
   date: string;
 
+  @property({
+    type: 'string',
+    default: 0,
+  })
+  image?: string;
+
+  @property({
+    type: 'array',
+    itemType: 'number',
+  })
+  usersWhoLike?: number[];
+
+  @property({
+    type: 'array',
+    itemType: 'number',
+  })
+  usersWhoDislike?: number[];
 
   constructor(data?: Partial<Comments>) {
     super(data);
