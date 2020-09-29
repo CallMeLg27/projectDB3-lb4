@@ -84,6 +84,41 @@ export class ProblemsController {
     return this.problemsRepository.find(filter);
   }
 
+  @get('/problems/lookup/users', {
+    responses: {
+      '200': {
+        description: 'Array of Problems model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Problems, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async lookup(
+    @param.filter(Problems) filter?: Filter<Problems>,
+  ): Promise<Problems[]> {
+    return (this.problemsRepository.dataSource.connector as any)
+    .collection("Problems")
+    .aggregate([
+      {
+        $lookup:{
+          from: "Users",
+          localField: "userId",
+          foreignField: "userId",
+          as: "user"
+        }
+      },{
+        $unwind:"$user"
+      }
+      ])
+    .get();
+  }
+
   @get('/problems/mostScored', {
     responses: {
       '200': {

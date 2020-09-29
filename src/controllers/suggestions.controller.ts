@@ -84,6 +84,41 @@ export class SuggestionsController {
     return this.suggestionsRepository.find(filter);
   }
 
+  @get('/suggestions/lookup/users', {
+    responses: {
+      '200': {
+        description: 'Array of Suggestions model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Suggestions, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async lookup(
+    @param.filter(Suggestions) filter?: Filter<Suggestions>,
+  ): Promise<Suggestions[]> {
+    return (this.suggestionsRepository.dataSource.connector as any)
+    .collection("Suggestions")
+    .aggregate([
+      {
+        $lookup:{
+          from: "Users",
+          localField: "userId",
+          foreignField: "userId",
+          as: "user"
+        }
+      },{
+        $unwind:"$user"
+      }
+      ])
+    .get();
+  }
+
   @get('/suggestions/mostScored', {
     responses: {
       '200': {

@@ -84,7 +84,7 @@ export class CommentsController {
     return this.commentsRepository.find(filter);
   }
 
-  @get('/comments/lookup', {
+  @get('/comments/lookup/users', {
     responses: {
       '200': {
         description: 'Array of Comments model instances',
@@ -99,7 +99,42 @@ export class CommentsController {
       },
     },
   })
-  async lookup(
+  async lookup_users(
+    @param.filter(Comments) filter?: Filter<Comments>,
+  ): Promise<Comments[]> {
+    return (this.commentsRepository.dataSource.connector as any)
+    .collection("Comments")
+    .aggregate([
+      {
+        $lookup:{
+          from: "Users",
+          localField: "userId",
+          foreignField: "userId",
+          as: "user"
+        }
+      },{
+        $unwind:"$user"
+      }
+      ])
+    .get();
+  }
+
+  @get('/comments/lookup/problems', {
+    responses: {
+      '200': {
+        description: 'Array of Comments model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Comments, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+  async lookup_problems(
     @param.filter(Comments) filter?: Filter<Comments>,
   ): Promise<Comments[]> {
     return (this.commentsRepository.dataSource.connector as any)
@@ -110,8 +145,10 @@ export class CommentsController {
           from: "Problems",
           localField: "problemId",
           foreignField: "problemId",
-          as: "problems"
+          as: "problem"
         }
+      },{
+        $unwind:"$problem"
       }
       ])
     .get();
